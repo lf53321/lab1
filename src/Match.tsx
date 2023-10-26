@@ -13,6 +13,7 @@ interface IMatchProps {
     away: string;
     home_score: number;
     away_score: number;
+    edit: boolean
 }
 
 function Match(props: IMatchProps){
@@ -74,7 +75,7 @@ function Match(props: IMatchProps){
                 <span className="mr-3">{awayScoreCurrent === -1 ? "-" : awayScoreCurrent}</span>
             )}
             <span className="mr-3" style={{ width: '120px', textAlign:"right" }}>{props.away}</span>
-            {user?.email === props.tournament.email ? <button type={isEditing ? "button" : "submit"} className={`btn btn-${isEditing ? 'primary' : 'secondary'}`} style={{ marginLeft:"5px" }} onClick={() => {
+            {(user?.email === props.tournament.email && props.edit) ? <button type={isEditing ? "button" : "submit"} className={`btn btn-${isEditing ? 'primary' : 'secondary'}`} style={{ marginLeft:"5px" }} onClick={() => {
                 setIsEditing(!isEditing)}}>
                 {isEditing ? 'Spremi' : 'Izmjeni'}
             </button> : <></>}
