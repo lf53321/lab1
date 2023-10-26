@@ -185,7 +185,7 @@ function Tournament(props: editProps) {
                     </tbody>
                 </table>
                 {tournament.competitors.map((x,index) => {
-                    if (index === tournament.competitors.length) return;
+                    if (index === tournament.competitors.length || (index === tournament.competitors.length - 1 && tournament.competitors.length % 2 === 0)) return;
                     return (<div style={{display:"flex", flexFlow:"column", alignItems:"center"}}>
                         <h1>{index + 1}. kolo</h1>
                         {matches.filter(match => match.round === index + 1).map(match => (
