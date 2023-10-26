@@ -5,7 +5,11 @@ import { useParams } from 'react-router-dom';
 import {ITournament} from "./MainPage";
 import Match from "./Match";
 import './Table.css'
+import { useLocation } from 'react-router-dom';
 
+interface editProps {
+    edit: boolean,
+}
 
 interface IMatch {
     tournament_id: string,
@@ -114,7 +118,8 @@ async function fetchMatchesByID(id: string | undefined) {
     return matches;
 }
 
-function Tournament() {
+function Tournament(props: editProps) {
+    const location = useLocation();
     const {id} = useParams();
     const [tournament, setTournament] = useState<ITournament>();
     const [matches, setMatches] = useState<IMatch[]>([]);
@@ -150,6 +155,10 @@ function Tournament() {
         tournament && scores ? (
         <>
             <div style={{display:"flex", flexFlow:"column", alignItems:"center"}}>
+                <h6>Link natjecanja:</h6>
+                <div style={{wordWrap:"break-word" , wordBreak:"break-all"}}>
+                    <p>{window.location.hostname}/preview/tournament/{id}</p>
+                </div>
                 <h1>{tournament.name}</h1>
                 <table className="leaderboard">
                     <thead>
@@ -180,7 +189,7 @@ function Tournament() {
                     return (<div style={{display:"flex", flexFlow:"column", alignItems:"center"}}>
                         <h1>{index + 1}. kolo</h1>
                         {matches.filter(match => match.round === index + 1).map(match => (
-                            <Match tournament={tournament} id={match.id} tournament_id={match.tournament_id} round={match.round} home={match.home} away={match.away} away_score={match.away_score} home_score={match.home_score}/>
+                            <Match edit={props.edit} tournament={tournament} id={match.id} tournament_id={match.tournament_id} round={match.round} home={match.home} away={match.away} away_score={match.away_score} home_score={match.home_score}/>
                         ))}
                     </div>);
                 })}

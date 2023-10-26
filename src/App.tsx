@@ -14,7 +14,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={"/"} element={<MainPage/>}/>
-                    <Route path={"/tournament/:id"} Component={Tournament}/>
+                    <Route path={"/tournament/:id"} element={<Tournament edit={true}/>}/>
+                    <Route path={"/preview/tournament/:id"} element={<Tournament edit={false}/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
